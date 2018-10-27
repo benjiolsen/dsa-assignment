@@ -20,11 +20,12 @@ public class Sorts{
     // BEST = AVG = WORST = O(NlogN)
     public static void mergeSort(Candidate[] inArray,String sortBy){
         // Calls to recursive call, therfore acting as the wrapper function
-        mergeSortRecurse(A,0,A.length-1,sortBy);
+        mergeSortRecurse(inArray,0,(inArray.length-1),sortBy);
     }
     private static void mergeSortRecurse(Candidate[] inArray,
-                                         int leftIdx, int rightIdx,
-                                         String sortyBy){
+                                         int leftIdx,
+                                         int rightIdx,
+                                         String sortBy){
         if(leftIdx<rightIdx){
             // This splits the array in half over and over until its 1 element
             int midIdx = (leftIdx+rightIdx)/2;
@@ -32,20 +33,20 @@ public class Sorts{
             mergeSortRecurse(inArray,leftIdx,midIdx,sortBy);
             mergeSortRecurse(inArray,midIdx+1,rightIdx,sortBy);
 
-            mergeCandidate(A,leftIdx,midIdx,rightIdx,sortBy);
+            mergeCandidate(inArray,leftIdx,midIdx,rightIdx,sortBy);
         }
     }
      public static void mergeCandidate(Candidate[] inArray,int leftIdx,
-                                       int rightIdx,String sortBy){
+                                       int midIdx,int rightIdx,String sortBy){
         // Creates a new array this size of the amount of elements to merge
-        Candidate[] tempArray = new Candidate[rightIdx-leftIdx+1]
+        Candidate[] tempArray = new Candidate[rightIdx-leftIdx+1];
         // ii is used to refer to the lowest indexed of the left sub array
         int ii = leftIdx;
         // jj is used to refer to the lowest indexed of the right sub array
         int jj = midIdx+1;
         // kk is used for the next free element in the temp array
         int kk = 0;
-        switch(sortyBy){
+        switch(sortBy){
             // Swtiches on what the user wanted the string to be ordered by
             case "Last":
                 while((ii <= midIdx)&&(jj <= rightIdx)){
@@ -62,7 +63,7 @@ public class Sorts{
                         }
                         kk++;
                     }
-                    for(ii=ii;ii<=midIdx;ii){
+                    for(ii=ii;ii<=midIdx;ii++){
                         // Flushes the remainder from the left sub array
                         tempArray[kk] = inArray[ii];
                         kk++;
@@ -93,7 +94,7 @@ public class Sorts{
                         }
                         kk++;
                     }
-                    for(ii=ii;ii<=midIdx;ii){
+                    for(ii=ii;ii<=midIdx;ii++){
                         // Flushes the remainder from the left sub array
                         tempArray[kk] = inArray[ii];
                         kk++;
@@ -124,7 +125,7 @@ public class Sorts{
                         }
                         kk++;
                     }
-                    for(ii=ii;ii<=midIdx;ii){
+                    for(ii=ii;ii<=midIdx;ii++){
                         // Flushes the remainder from the left sub array
                         tempArray[kk] = inArray[ii];
                         kk++;
@@ -155,7 +156,7 @@ public class Sorts{
                         }
                         kk++;
                     }
-                    for(ii=ii;ii<=midIdx;ii){
+                    for(ii=ii;ii<=midIdx;ii++){
                         // Flushes the remainder from the left sub array
                         tempArray[kk] = inArray[ii];
                         kk++;
@@ -186,7 +187,7 @@ public class Sorts{
                         }
                         kk++;
                     }
-                    for(ii=ii;ii<=midIdx;ii){
+                    for(ii=ii;ii<=midIdx;ii++){
                         // Flushes the remainder from the left sub array
                         tempArray[kk] = inArray[ii];
                         kk++;
@@ -206,5 +207,16 @@ public class Sorts{
                 System.out.println("Invalid Sorting Type");
             break;
         }
+     }
+
+     public static LinkedList<Candidate> filter(Candidate[] candidates,
+                                                String filterBy){
+        LinkedList<Candidate> list = new LinkedList<Candidate>();
+        for(Candidate can: candidates){
+            if(can.getFName()=="ABBOTT"){
+
+            }
+        }
+        return list;
      }
 }

@@ -188,6 +188,14 @@ public class LinkedList<E> implements Iterable<E>{
         return nodeValue;
     }
 
+    public int getLength(){
+        int ii = 0;
+        for(E e:this){
+            ii++;
+        }
+        return ii;
+    }
+
     // Public function to test if the list is empty
     public boolean isEmpty(){return (head == null);}
 }

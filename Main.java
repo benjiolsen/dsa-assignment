@@ -11,5 +11,5 @@ public class Main
     public static void main(String[] args)
     {// Here we go lads
         Menu.run();
-    }// Bye for now!
+    }
 }

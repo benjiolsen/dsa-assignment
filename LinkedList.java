@@ -13,14 +13,14 @@
 */
 import java.util.*;
 public class LinkedList<E> implements Iterable<E>{
-    private class ListNode<E>{// private inner class
+    private class ListNode<E>{// Private inner class
         public E value;
         public ListNode<E> next;
         public ListNode<E> prev;
 
         public ListNode(E inValue){
-            // sets the value, then sets the pointers to be null, as nothing
-            // exists there yet
+            // Sets the value, then sets the pointers to be null, as nothing
+            // Exists there yet
             value = inValue;
             next = null;
             prev = null;
@@ -37,8 +37,8 @@ public class LinkedList<E> implements Iterable<E>{
         public ListNode<E> getNext(){return next;}
     }
 
-    private class LinkedListIterator<E> implements Iterator<E>
-    {// private inner class
+    private class LinkedListIterator<E> implements Iterator<E>{
+        // Private inner class
         private LinkedList<E>.ListNode<E> iterNext;
 
         // Iterates over the list starting at the start

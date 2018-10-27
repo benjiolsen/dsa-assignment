@@ -20,8 +20,8 @@ public class Graph{
     private class GraphVertex{
         private String label;
         private boolean visited;
-        private
-        private DSALinkedList<GraphVertex> links;
+        private Object value;
+        private LinkedList<GraphVertex> links;
 
         private GraphVertex(String inLabel){
             if(inLabel!=null){
@@ -36,7 +36,7 @@ public class Graph{
 
         public boolean getVisited(){ return visited; }
 
-        private DSALinkedList<GraphVertex> getAdjacent(){ return links; }
+        private LinkedList<GraphVertex> getAdjacent(){ return links; }
 
         public String toString(){ return label; }
 
@@ -57,6 +57,6 @@ public class Graph{
 
 
     }
-    private DSALinkedList<GraphVertex> vertices;
+    private LinkedList<GraphVertex> vertices;
 
 }

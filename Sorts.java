@@ -210,11 +210,46 @@ public class Sorts{
      }
 
      public static LinkedList<Candidate> filter(Candidate[] candidates,
-                                                String filterBy){
+                                                String filterBy,String filter){
         LinkedList<Candidate> list = new LinkedList<Candidate>();
-        for(Candidate can: candidates){
-            if(can.getFName()=="ABBOTT"){
+        boolean failed = false;
 
+        for(Candidate can: candidates){
+            switch(filterBy){
+                case "State":
+                    if(can.getState().equalsIgnoreCase(filter)){
+                        list.insertLast(can);
+                    }
+                    else{
+                        failed = true;
+                    }
+                break;
+                case "Party":
+                    if(can.getLongParty().equalsIgnoreCase(filter)||
+                       can.getShortParty().equalsIgnoreCase(filter)){
+                        list.insertLast(can);
+                    }
+                    else{
+                        failed = true;
+                    }
+                break;
+                case "Division":
+                    if(can.getDivision().equalsIgnoreCase(filter)){
+                        list.insertLast(can);
+                    }
+                    else{
+                        failed = true;
+                    }
+                break;
+                default:
+                break;
+            }
+        }
+        if(failed==true&&list.isEmpty()==true){
+            System.out.println("Failed to filter based upon input");
+            System.out.println("All data being shown");
+            for(Candidate can2: candidates){
+                list.insertLast(can2);
             }
         }
         return list;

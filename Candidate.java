@@ -128,6 +128,25 @@ public class Candidate{
         }
     }
 
+    public String toString(){
+        String output;
+        output = state+","+divisionID+","+division+","+shortParty+","+longParty+
+        ","+candidateID+","+sName+","+fName+",";
+        if(elected == true){
+            output+="Y";
+        }
+        else{
+            output+="N"+",";
+        }
+        if(historic == true){
+            output+="Y"+",";
+        }
+        else{
+            output+="N";
+        }
+        return output;
+    }
+
     // Ensures the string isnt null or empty
     private boolean testNull(String inString){
         boolean isNull = true;

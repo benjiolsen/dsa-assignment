@@ -31,6 +31,19 @@ public class Candidate{
     public boolean getElected(){return elected;}
     public boolean getHistoric(){return historic;}
 
+    public Candidate(String[] candidateData){
+        setFName(candidateData[7]);
+        setSName(candidateData[6]);
+        setState(candidateData[0]);
+        setDivision(candidateData[2]);
+        setShortParty(candidateData[4]);
+        setLongParty(candidateData[3]);
+        setDivisionID(Integer.parseInt(candidateData[1]));
+        setCandidateID(Integer.parseInt(candidateData[5]));
+        setElected(candidateData[8].charAt(0));
+        setHistoric(candidateData[9].charAt(0));
+    }
+
     // Setters for all the classfields
     // All string based setters call the testNull to ensure string validity
     // All int setters assume validity
@@ -69,11 +82,12 @@ public class Candidate{
             throw new IllegalArgumentException("Invalid Division Name");
         }
     }
-    public void setShortParty(String inString){]
+    public void setShortParty(String inString){
         if(testNull(inString)==false){
             shortParty = inString;
         }
         else{
+            System.out.println(inString);
             throw new IllegalArgumentException("Invalid Party Name (Short)");
         }
     }
@@ -89,13 +103,13 @@ public class Candidate{
         divisionID = inInt;
     }
     public void setCandidateID(int inInt){
-        candidateID = inINt;
+        candidateID = inInt;
     }
     public void setElected(char inChar){
-        if(inChar == Y){
+        if(inChar == 'Y'){
             elected = true;
         }
-        else if(inChar == N){
+        else if(inChar == 'N'){
             elected = false;
         }
         else{
@@ -103,10 +117,10 @@ public class Candidate{
         }
     }
     public void setHistoric(char inChar){
-        if(inChar == Y){
+        if(inChar == 'Y'){
             historic = true;
         }
-        else if(inChar == N){
+        else if(inChar == 'N'){
             historic = false;
         }
         else{

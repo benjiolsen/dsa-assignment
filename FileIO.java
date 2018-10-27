@@ -118,7 +118,7 @@ public class FileIO
                 try{// If the file is still open, try to close it
                     oStream.close();
                 }
-                catch(Exception e){
+                catch(Exception ex2){
                     System.out.println(e.getMessage());
                 }
             }
@@ -146,7 +146,7 @@ public class FileIO
                 try{// If the file is still open, try to close it
                     oStream.close();
                 }
-                catch(Exception e){
+                catch(Exception ex2){
                     System.out.println(e.getMessage());
                 }
             }

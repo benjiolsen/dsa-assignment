@@ -65,7 +65,10 @@ public class Menu{
 
     public static void listNominees(Candidate[] candidates){
         int sort,filter,sortChoice=0,filterChoice=0;
-        String filterString = null;
+        String filterString = null,fileChoice = null;
+        LinkedList<Candidate> list = new LinkedList<Candidate>();
+        LinkedList<String> output = new LinkedList<String>();
+
         System.out.println("Do you wish to sort the candidates?");
         System.out.println("[1] Sorted\n[2] Unsorted");
         sort = UserInput.intPut(1,2);
@@ -77,17 +80,19 @@ public class Menu{
                                "[3] State\n[4] Party\n[5] Division");
             sortChoice = UserInput.intPut(1,5);
         }
+
         System.out.println("Do you wish to filter the candidates?");
         System.out.println("[1] Filtered\n[2] Unfiltered");
         filter = UserInput.intPut(1,2);
         if(filter==1){
             System.out.println("How do you wish to filter the candidates?");
             System.out.println("By: State? Party? Divison?");
-            System.out.println("[1] State\n[2] Party?\n[3] Division");
+            System.out.println("[1] State\n[2] Party\n[3] Division");
             filterChoice = UserInput.intPut(1,3);
             System.out.println("Please enter the filter");
-            filterString = UserInput.stringPut(); 
+            filterString = UserInput.stringPut();
         }
+
         switch(sortChoice){
             case 1:
                 Sorts.mergeSort(candidates,"First");
@@ -103,6 +108,42 @@ public class Menu{
             break;
             case 5:
                 Sorts.mergeSort(candidates,"Division");
+            break;
+            default:
+            break;
+        }
+        switch(filterChoice){
+            case 1:
+                list = Sorts.filter(candidates,"State",filterString);
+            break;
+            case 2:
+                list = Sorts.filter(candidates,"Party",filterString);
+            break;
+            case 3:
+                list = Sorts.filter(candidates,"Division",filterString);
+            break;
+            default:
+            break;
+        }
+
+        for(Candidate can: list){
+            System.out.println(can.getFName() +" "+ can.getSName());
+        }
+
+        System.out.println("Save these candidates to file?\n[Y]/[N]");
+        fileChoice = UserInput.stringPut();
+        switch(fileChoice){
+            case "y":
+            case "Y":
+                for(Candidate can2: list){
+                    output.insertLast(can2.toString());
+                }
+                output.insertFirst("StateAb,DivisionID,DivisionNm,PartyAb,"+
+                "PartyNm,CandidateID,Surname,GivenNm,Elected,HistoricElected");
+                FileIO.write("Nominees-Filtered.csv",output);
+                System.out.println("Saved file!\nNominees-Filtered.csv");
+            break;
+            default:
             break;
         }
 

@@ -42,7 +42,7 @@ public class UserInput{
         // Creates the Scanner Object
         Scanner sc = new Scanner(System.in);
         String input = new String();
-        try{// Trys to take the inpout, and catches the thrown exception
+        try{// Trys to take the input, and catches the thrown exception
             System.out.println("Please enter your string below:");
             if(sc.hasNext()){
                 // Ensures something was input (semi pointless)

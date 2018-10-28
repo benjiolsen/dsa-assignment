@@ -97,7 +97,8 @@ public class FileIO
             System.out.println("Error!" + e.getMessage() );
         }
     }
-
+/*  This section is commented out as it is not relevant to the assignment
+    however it was in the class and is decent to keep around
     // save
     // This function handles all the Object serialisation. Taking in the
     // object and its filename it then seralises it and saves the data into
@@ -154,4 +155,5 @@ public class FileIO
         }
         return inObj;
     }
+*/
 }

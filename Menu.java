@@ -124,20 +124,27 @@ public class Menu{
             default:
             break;
         }
-        // Switches on what the user wants to filter by, and the string they
-        // wanted to filter by
-        switch(filterChoice){
-            case 1:
+        if(filter==1){
+            // Switches on what the user wants to filter by, and the string they
+            // wanted to filter by
+            switch(filterChoice){
+                case 1:
                 list = Sorts.filter(candidates,"State",filterString);
-            break;
-            case 2:
+                break;
+                case 2:
                 list = Sorts.filter(candidates,"Party",filterString);
-            break;
-            case 3:
+                break;
+                case 3:
                 list = Sorts.filter(candidates,"Division",filterString);
-            break;
-            default:
-            break;
+                break;
+                default:
+                break;
+            }
+        }
+        else{
+            for(Candidate c: candidates){
+                list.insertLast(c);
+            }
         }
         // Runs through each candidate in the linked list and then outputs
         // their first and last names.
@@ -170,6 +177,14 @@ public class Menu{
         }
 
     }
+
+    // searchNominees
+    // This funciton acts to search the list of candidates, and then output
+    // the results of the users search. Utilising linked lists for storage of
+    // the results, as there is an unknown amount of results, and an array
+    // for all candidates, as that was previously used in the program. Prompts
+    // for users choice allows the user to sort and search, and then depending
+    // if there were any results, save them to a file.
     public static void searchNominees(Candidate[] candidates){
         // These integers are used to switch on for the users choice
         int sort,sortChoice=0;
@@ -190,6 +205,8 @@ public class Menu{
                                "[3] State\n[4] Party\n[5] Division");
             sortChoice = UserInput.intPut(1,5);
         }
+        // This section prompts the user for the surname search that they
+        // need to perform.
         System.out.println("Please enter the surnname, or part-thereof for"+
                            " your search.");
         searchString = UserInput.stringPut();
@@ -213,6 +230,8 @@ public class Menu{
             default:
             break;
         }
+        // Uses the find function in the Sorts class to search for the users
+        // inputted search.
         list = Sorts.find(candidates,searchString);
         if(list.isEmpty()==false){
             for(Candidate can:list){
@@ -244,6 +263,14 @@ public class Menu{
         }
     }
 
+    // listMargin
+    // This method is responsible for the listing out of marginal seats for
+    // the users choice party and their possible threshold limit. I used a
+    // fair amount of linked lists, which, may be overboard, but it lets me
+    // deal with a large amount of dynamic sizing of information. Plus, the
+    // speed and ability to iterate with a linked list is useful, however
+    // this does come at a memory overhead, but due to its small memory
+    // overhead it should be fine.
     public static void listMargin(){
         double threshold = 6.0;
         String party = new String();
@@ -263,6 +290,8 @@ public class Menu{
         LinkedList<String> TAS = new LinkedList<String>();
         LinkedList<String> ACT = new LinkedList<String>();
         LinkedList<String> NT = new LinkedList<String>();
+        // Removing the first two gets rid of the data that isnt needed, such
+        // as the format and the information about the file
         WA = FileIO.read("HouseStateFirstPrefsByPollingPlaceDownload-20499-WA.csv");
         WA.removeFirst();
         WA.removeFirst();
@@ -291,7 +320,8 @@ public class Menu{
         System.out.println("Please enter the party name, or part thereof");
         System.out.println("(Full name or abbreviation accepted)");
         party = UserInput.stringPut();
-
+        // Repeatedly adds to the margins list after reading from each file
+        // and adding them to the marginal calculations
         margins = marginCalc(WA,margins,party);
         margins = marginCalc(NSW,margins,party);
         margins = marginCalc(VIC,margins,party);
@@ -301,8 +331,11 @@ public class Menu{
         margins = marginCalc(NT,margins,party);
         margins = marginCalc(QLD,margins,party);
 
-        if(margins != null){
+        // If the list was populated, then you can run through, otherwise,
+        // an error will be printed on the screen.
+        if(margins.isEmpty()==false){
             System.out.println("Do you wish to have a threshold?");
+            System.out.println("[Y] Yes [N] No, use the default +/-6%");
             thresholdChoice = UserInput.stringPut();
             switch(thresholdChoice){
                 case "y":
@@ -312,16 +345,17 @@ public class Menu{
                 default:
                 break;
             }
-
             for(Seats seat:margins){
+                // Only puts the information on the screen or in the list
+                // if it is between the threshold limits
                 if(seat.getMargin()>-threshold&&seat.getMargin()<threshold){
                     System.out.println(seat);
                     matching.insertLast(seat);
                 }
             }
-
             System.out.println("Save this output to file?\n[Y]/[N]");
             fileChoice = UserInput.stringPut();
+
             switch(fileChoice){
                 case "y":
                 case "Y":
@@ -335,13 +369,13 @@ public class Menu{
                     System.out.println("Saved file!\nMarginal-Seats.txt");
                 break;
                 default:
-                    // This here is empty as if the user says anything other
-                    // than yes its not needed
+                // This here is empty as if the user says anything other
+                // than yes its not needed
                 break;
             }
         }
         else{
-            System.out.println("The party was not found");
+            System.out.println("The party was not found\n");
         }
 
 
@@ -350,6 +384,10 @@ public class Menu{
 
     }
 
+    // readCandidates
+    // This method reads in the candidates into an array. This runs at the
+    // beginning of the program to ensure it starts with this information
+    // already accessible. The array was chosen for its sorting ability.
     public static Candidate[] readCandidates(){
         // This is the array to be returned. The array is being used, over
         // the list, for its O(1) access time, and the ease it allows for
@@ -382,6 +420,7 @@ public class Menu{
                 // This big regex takes away any commas, excluding those in
                 // quotation marks, preserving the name of the shooters and
                 // fishers party.
+                // RegEx recieved from Stack Overflow, UserName: MarkusQ
                 String[] splits = line.split("(,)(?=(?:[^\"]|\"[^\"]*\")*$)");
                 for(String splitLine:splits){
                     // Runs through the splits to ensure none of them are
@@ -412,6 +451,14 @@ public class Menu{
         return candidates;
     }
 
+    // marginCalc
+    // This is the method which calculates the marginal values for the
+    // users party of choice, unless there is no match, and therefore the
+    // list is not populated at all. The linked list was chose as there is
+    // going to be an indeterminate amount of entrys, and to save array
+    // copying and extending, a simple linked list could suffice. Plus, its
+    // O(1) insert times are good and array like, so reading into them is
+    // fine.
     public static LinkedList<Seats> marginCalc(LinkedList<String> lines,
                                                LinkedList<Seats> margins,
                                                String party){
@@ -419,27 +466,44 @@ public class Menu{
         double margin=0.0;
         String name=null;
         String[] splits = null;
+        // This allows the system to ensure that only votes for and against
+        // a party will exist if the party is present in that area.
+        boolean matched = false;
 
         for(String line:lines){
+            // A dirty regex to ensure that the commas inside quotes are
+            // preserved
+            // RegEx recieved from Stack Overflow, UserName: MarkusQ
             splits = line.split("(,)(?=(?:[^\"]|\"[^\"]*\")*$)");
             if(num==0||num!=Integer.parseInt(splits[1])){
                     if(num==0){
+                        // If this is the first rodeo, then it will pass the
+                        // first if statement and therefore will need to be
+                        // handled
                         name = splits[2];
                         num = Integer.parseInt(splits[1]);
                     }
                     else{
-                        margin = ((double)vF/((double)vF+(double)vA))*100-50;
-                        margins.insertLast(new Seats(margin,name,num));
+                        if(matched == true){
+                            // Ensures that there was a match in the search
+                            margin = ((double)vF/((double)vF+(double)vA))*100-50;
+                            margins.insertLast(new Seats(margin,name,num));
+                        }
+                        // Initialises all the values
                         name = splits[2];
                         num = Integer.parseInt(splits[1]);
                         vF = 0;
                         vA = 0;
+                        matched = false;
                     }
             }
             else{
                 if(splits[11].toLowerCase().contains(party.toLowerCase())||
                    splits[12].toLowerCase().contains(party.toLowerCase())){
-                    vF+=Integer.parseInt(splits[13]);
+                   // If the users string matches or partly matches the input
+                   // party names
+                   vF+=Integer.parseInt(splits[13]);
+                   matched = true;
                 }
                 else{
                     vA+=Integer.parseInt(splits[13]);

@@ -42,8 +42,15 @@ public class Sorts{
             mergeCandidate(inArray,leftIdx,midIdx,rightIdx,sortBy);
         }
     }
-     public static void mergeCandidate(Candidate[] inArray,int leftIdx,
-                                       int midIdx,int rightIdx,String sortBy){
+
+    // mergeCandidate
+    // This function merges the sub arrays from the recursive call from the
+    // previous submodule. The same algorithm is used no matter what the user
+    // chose to order by, the only difference is the comparison performed. it
+    // is performed on the different candidate classfields as per the users
+    // choice.
+    public static void mergeCandidate(Candidate[] inArray,int leftIdx,
+                                      int midIdx,int rightIdx,String sortBy){
         // Creates a new array this size of the amount of elements to merge
         Candidate[] tempArray = new Candidate[rightIdx-leftIdx+1];
         // ii is used to refer to the lowest indexed of the left sub array
@@ -290,5 +297,33 @@ public class Sorts{
             }
         }
         return list;
+     }
+
+     // find
+     // This function searches through the array of candidates to see if the
+     // last name contains the filter entered by the user, if so it is added
+     // into a linked list with O(1) timing, and then returns that list to
+     // the user. The linked list again, was used for the dynamic sizing to
+     // allow for the unknown amount of candidates who match the search.
+     public static LinkedList<Candidate> find(Candidate[] candidates,
+                                              String lName){
+         LinkedList<Candidate> list = new LinkedList<Candidate>();
+         for(Candidate can: candidates){
+             // to ensure that the user is searching for the correct string
+             // no matter of case, the toLowerCase is called on both to ensure
+             // that the strings are matching cases and wont return false if
+             // one letter is the wrong case. Contains is called to match if
+             // the last name contains the input name.
+             if(can.getSName().toLowerCase().contains(lName.toLowerCase())){
+                 // O(1) access time
+                 list.insertLast(can);
+             }
+         }
+         if(list.isEmpty()==true){
+             // If this list hasnt had anything put into it, then the search
+             // wasnt successful.
+             System.out.println("The search turned up empty");
+         }
+         return list;
      }
 }

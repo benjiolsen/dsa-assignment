@@ -381,7 +381,7 @@ public class Menu{
 
     }
     public static void itinerary(){
-
+        System.out.println("Check bacc later xx");
     }
 
     // readCandidates

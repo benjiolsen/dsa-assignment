@@ -50,7 +50,7 @@ public class Menu{
                 listNominees(candidates);
             break;
             case 2: choice = 2;
-                searchNominees();
+                searchNominees(candidates);
             break;
             case 3: choice = 3;
                 listMargin();
@@ -170,7 +170,80 @@ public class Menu{
         }
 
     }
-    public static void searchNominees(){
+    public static void searchNominees(Candidate[] candidates){
+        // These integers are used to switch on for the users choice
+        int sort,sortChoice=0;
+        String searchString = null,fileChoice = null;
+        LinkedList<Candidate> list = new LinkedList<Candidate>();
+        // Incase the user wants to save to file
+        LinkedList<String> output = new LinkedList<String>();
+
+        // This section handles if the user wants to sort, and what on
+        System.out.println("Do you wish to sort the candidates?");
+        System.out.println("[1] Sorted\n[2] Unsorted");
+        sort = UserInput.intPut(1,2);
+        if(sort==1){
+            System.out.println("How do you wish to sort the candidates?");
+            System.out.println("By: First Name? Last Name? State? Party?"+
+                               " Divison?");
+            System.out.println("[1] First Name\n[2] Last Name\n"+
+                               "[3] State\n[4] Party\n[5] Division");
+            sortChoice = UserInput.intPut(1,5);
+        }
+        System.out.println("Please enter the surnname, or part-thereof for"+
+                           " your search.");
+        searchString = UserInput.stringPut();
+        // Switches on what the user wanted to sort by
+        switch(sortChoice){
+            case 1:
+            Sorts.mergeSort(candidates,"First");
+            break;
+            case 2:
+            Sorts.mergeSort(candidates,"Last");
+            break;
+            case 3:
+            Sorts.mergeSort(candidates,"State");
+            break;
+            case 4:
+            Sorts.mergeSort(candidates,"Party");
+            break;
+            case 5:
+            Sorts.mergeSort(candidates,"Division");
+            break;
+            default:
+            break;
+        }
+        list = Sorts.find(candidates,searchString);
+        if(list.isEmpty()==false){
+            for(Candidate can:list){
+                System.out.println(can.toString());
+            }
+            // This section asks the user if they want to save the report to a
+            // file
+            System.out.println("Save these candidates to file?\n[Y]/[N]");
+            fileChoice = UserInput.stringPut();
+            switch(fileChoice){
+                case "y":
+                case "Y":
+                    for(Candidate can2: list){
+                        output.insertLast(can2.toString());
+                    }// This loop ads the toString for the candidate to a ll
+                    // This string at the start is the format of the data from the
+                    // scraped csv
+                    output.insertFirst("StateAb,DivisionID,DivisionNm,PartyAb,"+
+                    "PartyNm,CandidateID,Surname,GivenNm,Elected,HistoricElected");
+                    // This function saves information to the csv
+                    FileIO.write("Search-Results.csv",output);
+                    System.out.println("Saved file!\nSearch-Results.csv");
+                break;
+                default:
+                    // This here is empty as if the user says anything other than
+                    // yes its not needed
+                break;
+            }
+        }
+
+
 
     }
     public static void listMargin(){

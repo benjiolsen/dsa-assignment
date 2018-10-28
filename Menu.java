@@ -228,8 +228,8 @@ public class Menu{
                     for(Candidate can2: list){
                         output.insertLast(can2.toString());
                     }// This loop ads the toString for the candidate to a ll
-                    // This string at the start is the format of the data from the
-                    // scraped csv
+                    // This string at the start is the format of the data from
+                    // the scraped csv
                     output.insertFirst("StateAb,DivisionID,DivisionNm,PartyAb,"+
                     "PartyNm,CandidateID,Surname,GivenNm,Elected,HistoricElected");
                     // This function saves information to the csv
@@ -237,16 +237,113 @@ public class Menu{
                     System.out.println("Saved file!\nSearch-Results.csv");
                 break;
                 default:
-                    // This here is empty as if the user says anything other than
-                    // yes its not needed
+                    // This here is empty as if the user says anything other
+                    // than yes its not needed
                 break;
             }
         }
-
-
-
     }
+
     public static void listMargin(){
+        double threshold = 6.0;
+        String party = new String();
+        String fileChoice = new String();
+        String thresholdChoice = new String();
+        // Incase the user wants to save to file
+        LinkedList<String> output = new LinkedList<String>();
+        // Contains the margins and the divisions
+        LinkedList<Seats> margins = new LinkedList<Seats>();
+        LinkedList<Seats> matching = new LinkedList<Seats>();
+        // Contains the files informations from the csv files
+        LinkedList<String> WA = new LinkedList<String>();
+        LinkedList<String> NSW = new LinkedList<String>();
+        LinkedList<String> VIC = new LinkedList<String>();
+        LinkedList<String> QLD = new LinkedList<String>();
+        LinkedList<String> SA = new LinkedList<String>();
+        LinkedList<String> TAS = new LinkedList<String>();
+        LinkedList<String> ACT = new LinkedList<String>();
+        LinkedList<String> NT = new LinkedList<String>();
+        WA = FileIO.read("HouseStateFirstPrefsByPollingPlaceDownload-20499-WA.csv");
+        WA.removeFirst();
+        WA.removeFirst();
+        NSW = FileIO.read("HouseStateFirstPrefsByPollingPlaceDownload-20499-NSW.csv");
+        NSW.removeFirst();
+        NSW.removeFirst();
+        VIC = FileIO.read("HouseStateFirstPrefsByPollingPlaceDownload-20499-VIC.csv");
+        VIC.removeFirst();
+        VIC.removeFirst();
+        QLD = FileIO.read("HouseStateFirstPrefsByPollingPlaceDownload-20499-QLD.csv");
+        QLD.removeFirst();
+        QLD.removeFirst();
+        SA = FileIO.read("HouseStateFirstPrefsByPollingPlaceDownload-20499-SA.csv");
+        SA.removeFirst();
+        SA.removeFirst();
+        TAS = FileIO.read("HouseStateFirstPrefsByPollingPlaceDownload-20499-TAS.csv");
+        TAS.removeFirst();
+        TAS.removeFirst();
+        ACT = FileIO.read("HouseStateFirstPrefsByPollingPlaceDownload-20499-ACT.csv");
+        ACT.removeFirst();
+        ACT.removeFirst();
+        NT = FileIO.read("HouseStateFirstPrefsByPollingPlaceDownload-20499-NT.csv");
+        NT.removeFirst();
+        NT.removeFirst();
+
+        System.out.println("Please enter the party name, or part thereof");
+        System.out.println("(Full name or abbreviation accepted)");
+        party = UserInput.stringPut();
+
+        margins = marginCalc(WA,margins,party);
+        margins = marginCalc(NSW,margins,party);
+        margins = marginCalc(VIC,margins,party);
+        margins = marginCalc(ACT,margins,party);
+        margins = marginCalc(QLD,margins,party);
+        margins = marginCalc(TAS,margins,party);
+        margins = marginCalc(NT,margins,party);
+        margins = marginCalc(QLD,margins,party);
+
+        if(margins != null){
+            System.out.println("Do you wish to have a threshold?");
+            thresholdChoice = UserInput.stringPut();
+            switch(thresholdChoice){
+                case "y":
+                case "Y":
+                    threshold = UserInput.doublePut(-100.0,100.0);
+                break;
+                default:
+                break;
+            }
+
+            for(Seats seat:margins){
+                if(seat.getMargin()>-threshold&&seat.getMargin()<threshold){
+                    System.out.println(seat);
+                    matching.insertLast(seat);
+                }
+            }
+
+            System.out.println("Save this output to file?\n[Y]/[N]");
+            fileChoice = UserInput.stringPut();
+            switch(fileChoice){
+                case "y":
+                case "Y":
+                    for(Seats seats: matching){
+                        output.insertLast(seats.toString());
+                    }// This loop adds the toString for the candidate to a ll
+                    // This string at the start is the format of the data from
+                    // the scraped csv
+                    // This function saves information to the csv
+                    FileIO.write("Marginal-Seats.txt",output);
+                    System.out.println("Saved file!\nMarginal-Seats.txt");
+                break;
+                default:
+                    // This here is empty as if the user says anything other
+                    // than yes its not needed
+                break;
+            }
+        }
+        else{
+            System.out.println("The party was not found");
+        }
+
 
     }
     public static void itinerary(){
@@ -313,5 +410,42 @@ public class Menu{
         list = null;
         candidateList = null;
         return candidates;
+    }
+
+    public static LinkedList<Seats> marginCalc(LinkedList<String> lines,
+                                               LinkedList<Seats> margins,
+                                               String party){
+        int vF=0,vA=0,num=0;
+        double margin=0.0;
+        String name=null;
+        String[] splits = null;
+
+        for(String line:lines){
+            splits = line.split("(,)(?=(?:[^\"]|\"[^\"]*\")*$)");
+            if(num==0||num!=Integer.parseInt(splits[1])){
+                    if(num==0){
+                        name = splits[2];
+                        num = Integer.parseInt(splits[1]);
+                    }
+                    else{
+                        margin = ((double)vF/((double)vF+(double)vA))*100-50;
+                        margins.insertLast(new Seats(margin,name,num));
+                        name = splits[2];
+                        num = Integer.parseInt(splits[1]);
+                        vF = 0;
+                        vA = 0;
+                    }
+            }
+            else{
+                if(splits[11].toLowerCase().contains(party.toLowerCase())||
+                   splits[12].toLowerCase().contains(party.toLowerCase())){
+                    vF+=Integer.parseInt(splits[13]);
+                }
+                else{
+                    vA+=Integer.parseInt(splits[13]);
+                }
+            }
+        }
+        return margins;
     }
 }

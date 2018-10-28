@@ -31,6 +31,10 @@ public class Candidate{
     public boolean getElected(){return elected;}
     public boolean getHistoric(){return historic;}
 
+    // The default constructor calls the relevant setters for the classfields
+    // as the validation is performed in those respective methods. The array
+    // being passed in was chosen for the convenience of keeping everything
+    // together.
     public Candidate(String[] candidateData){
         setFName(candidateData[7]);
         setSName(candidateData[6]);
@@ -133,13 +137,13 @@ public class Candidate{
         output = state+","+divisionID+","+division+","+shortParty+","+longParty+
         ","+candidateID+","+sName+","+fName+",";
         if(elected == true){
-            output+="Y";
+            output+="Y"+",";
         }
         else{
             output+="N"+",";
         }
         if(historic == true){
-            output+="Y"+",";
+            output+="Y";
         }
         else{
             output+="N";

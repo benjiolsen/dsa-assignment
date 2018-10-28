@@ -63,12 +63,22 @@ public class Menu{
         }
     }
 
+    // listNominees
+    // The function to list out the nominees based upon what the user decides
+    // to filter and order by. Through the use of mergeSort and some string
+    // searching to filter out what the user wants. User input also selects
+    // if the candidates should be sorted/filtered or not, and what the filter
+    // /sort should be on. Finally, the option is provided to save the list to
+    // a file
     public static void listNominees(Candidate[] candidates){
+        // These integers are used to switch on for the users choice
         int sort,filter,sortChoice=0,filterChoice=0;
         String filterString = null,fileChoice = null;
         LinkedList<Candidate> list = new LinkedList<Candidate>();
+        // Incase the user wants to save to file
         LinkedList<String> output = new LinkedList<String>();
 
+        // This section handles if the user wants to sort, and what on
         System.out.println("Do you wish to sort the candidates?");
         System.out.println("[1] Sorted\n[2] Unsorted");
         sort = UserInput.intPut(1,2);
@@ -81,6 +91,7 @@ public class Menu{
             sortChoice = UserInput.intPut(1,5);
         }
 
+        // This section handles if the user wants to filter and what on
         System.out.println("Do you wish to filter the candidates?");
         System.out.println("[1] Filtered\n[2] Unfiltered");
         filter = UserInput.intPut(1,2);
@@ -93,6 +104,7 @@ public class Menu{
             filterString = UserInput.stringPut();
         }
 
+        // Switches on what the user wanted to sort by
         switch(sortChoice){
             case 1:
                 Sorts.mergeSort(candidates,"First");
@@ -112,6 +124,8 @@ public class Menu{
             default:
             break;
         }
+        // Switches on what the user wants to filter by, and the string they
+        // wanted to filter by
         switch(filterChoice){
             case 1:
                 list = Sorts.filter(candidates,"State",filterString);
@@ -125,11 +139,14 @@ public class Menu{
             default:
             break;
         }
-
+        // Runs through each candidate in the linked list and then outputs
+        // their first and last names.
         for(Candidate can: list){
             System.out.println(can.getFName() +" "+ can.getSName());
         }
 
+        // This section asks the user if they want to save the report to a
+        // file
         System.out.println("Save these candidates to file?\n[Y]/[N]");
         fileChoice = UserInput.stringPut();
         switch(fileChoice){
@@ -137,13 +154,18 @@ public class Menu{
             case "Y":
                 for(Candidate can2: list){
                     output.insertLast(can2.toString());
-                }
+                }// This loop ads the toString for the candidate to a ll
+                // This string at the start is the format of the data from the
+                // scraped csv
                 output.insertFirst("StateAb,DivisionID,DivisionNm,PartyAb,"+
                 "PartyNm,CandidateID,Surname,GivenNm,Elected,HistoricElected");
+                // This function saves information to the csv
                 FileIO.write("Nominees-Filtered.csv",output);
                 System.out.println("Saved file!\nNominees-Filtered.csv");
             break;
             default:
+                // This here is empty as if the user says anything other than
+                // yes its not needed
             break;
         }
 

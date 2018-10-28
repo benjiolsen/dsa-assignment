@@ -22,17 +22,23 @@ public class Sorts{
         // Calls to recursive call, therfore acting as the wrapper function
         mergeSortRecurse(inArray,0,(inArray.length-1),sortBy);
     }
+    // mergeSortRecurse
+    // This is the function that recursively calls itself until it is calling
+    // an array of size 1, then it calls the merge function to merge it with
+    // the sub array next to it, unwinding and performing a merge on each sub
+    // array.
     private static void mergeSortRecurse(Candidate[] inArray,
                                          int leftIdx,
                                          int rightIdx,
                                          String sortBy){
+
         if(leftIdx<rightIdx){
             // This splits the array in half over and over until its 1 element
             int midIdx = (leftIdx+rightIdx)/2;
-            // recursion recursion recursion
+            // Recursion recursion recursion
             mergeSortRecurse(inArray,leftIdx,midIdx,sortBy);
             mergeSortRecurse(inArray,midIdx+1,rightIdx,sortBy);
-
+            // Merges and switches on the users choice
             mergeCandidate(inArray,leftIdx,midIdx,rightIdx,sortBy);
         }
     }
@@ -50,158 +56,168 @@ public class Sorts{
             // Swtiches on what the user wanted the string to be ordered by
             case "Last":
                 while((ii <= midIdx)&&(jj <= rightIdx)){
-                        // Merges the sub array into the temp array
-                        if(inArray[ii].getSName().compareTo(inArray[jj].getSName())>0){
-                            // Takes from the left sub array
-                            tempArray[kk] = inArray[ii];
-                            ii++;
-                        }
-                        else{
-                            // takes from the right sub array
-                            tempArray[kk] = inArray[jj];
-                            jj++;
-                        }
-                        kk++;
-                    }
-                    for(ii=ii;ii<=midIdx;ii++){
-                        // Flushes the remainder from the left sub array
+                    // Merges the sub array into the temp array
+                    if(inArray[ii].getSName()
+                                  .compareTo(inArray[jj]
+                                  .getSName())>0){
+                        // Takes from the left sub array
                         tempArray[kk] = inArray[ii];
-                        kk++;
+                        ii++;
                     }
-                    for(jj=jj;jj<=rightIdx;jj++){
-                        // Flushes the remainder from the right sub array
+                    else{
+                        // takes from the right sub array
                         tempArray[kk] = inArray[jj];
-                        kk++;
+                        jj++;
                     }
-                    for(kk=leftIdx;kk<=rightIdx;kk++){
-                        // Copies the sorted array back into the real array
-                        // uses kk-leftIndex to align the temp array indexing to 0
-                        inArray[kk] = tempArray[kk-leftIdx];
-                    }
+                    kk++;
+                }
+                for(ii=ii;ii<=midIdx;ii++){
+                    // Flushes the remainder from the left sub array
+                    tempArray[kk] = inArray[ii];
+                    kk++;
+                }
+                for(jj=jj;jj<=rightIdx;jj++){
+                    // Flushes the remainder from the right sub array
+                    tempArray[kk] = inArray[jj];
+                    kk++;
+                }
+                for(kk=leftIdx;kk<=rightIdx;kk++){
+                    // Copies the sorted array back into the real array
+                    // uses kk-leftIndex to align the temp array indexing to 0
+                    inArray[kk] = tempArray[kk-leftIdx];
+                }
             break;
             case "First":
                 while((ii <= midIdx)&&(jj <= rightIdx)){
-                        // Merges the sub array into the temp array
-                        if(inArray[ii].getFName().compareTo(inArray[jj].getFName())>0){
-                            // Takes from the left sub array
-                            tempArray[kk] = inArray[ii];
-                            ii++;
-                        }
-                        else{
-                            // takes from the right sub array
-                            tempArray[kk] = inArray[jj];
-                            jj++;
-                        }
-                        kk++;
-                    }
-                    for(ii=ii;ii<=midIdx;ii++){
-                        // Flushes the remainder from the left sub array
+                    // Merges the sub array into the temp array
+                    if(inArray[ii].getFName()
+                                  .compareTo(inArray[jj]
+                                  .getFName())>0){
+                        // Takes from the left sub array
                         tempArray[kk] = inArray[ii];
-                        kk++;
+                        ii++;
                     }
-                    for(jj=jj;jj<=rightIdx;jj++){
-                        // Flushes the remainder from the right sub array
+                    else{
+                        // takes from the right sub array
                         tempArray[kk] = inArray[jj];
-                        kk++;
+                        jj++;
                     }
-                    for(kk=leftIdx;kk<=rightIdx;kk++){
-                        // Copies the sorted array back into the real array
-                        // uses kk-leftIndex to align the temp array indexing to 0
-                        inArray[kk] = tempArray[kk-leftIdx];
-                    }
+                    kk++;
+                }
+                for(ii=ii;ii<=midIdx;ii++){
+                    // Flushes the remainder from the left sub array
+                    tempArray[kk] = inArray[ii];
+                    kk++;
+                }
+                for(jj=jj;jj<=rightIdx;jj++){
+                    // Flushes the remainder from the right sub array
+                    tempArray[kk] = inArray[jj];
+                    kk++;
+                }
+                for(kk=leftIdx;kk<=rightIdx;kk++){
+                    // Copies the sorted array back into the real array
+                    // uses kk-leftIndex to align the temp array indexing to 0
+                    inArray[kk] = tempArray[kk-leftIdx];
+                }
             break;
             case "State":
                 while((ii <= midIdx)&&(jj <= rightIdx)){
-                        // Merges the sub array into the temp array
-                        if(inArray[ii].getState().compareTo(inArray[jj].getState())>0){
-                            // Takes from the left sub array
-                            tempArray[kk] = inArray[ii];
-                            ii++;
-                        }
-                        else{
-                            // takes from the right sub array
-                            tempArray[kk] = inArray[jj];
-                            jj++;
-                        }
-                        kk++;
-                    }
-                    for(ii=ii;ii<=midIdx;ii++){
-                        // Flushes the remainder from the left sub array
+                    // Merges the sub array into the temp array
+                    if(inArray[ii].getState()
+                                  .compareTo(inArray[jj]
+                                  .getState())>0){
+                        // Takes from the left sub array
                         tempArray[kk] = inArray[ii];
-                        kk++;
+                        ii++;
                     }
-                    for(jj=jj;jj<=rightIdx;jj++){
-                        // Flushes the remainder from the right sub array
+                    else{
+                        // takes from the right sub array
                         tempArray[kk] = inArray[jj];
-                        kk++;
+                        jj++;
                     }
-                    for(kk=leftIdx;kk<=rightIdx;kk++){
-                        // Copies the sorted array back into the real array
-                        // uses kk-leftIndex to align the temp array indexing to 0
-                        inArray[kk] = tempArray[kk-leftIdx];
-                    }
+                    kk++;
+                }
+                for(ii=ii;ii<=midIdx;ii++){
+                    // Flushes the remainder from the left sub array
+                    tempArray[kk] = inArray[ii];
+                    kk++;
+                }
+                for(jj=jj;jj<=rightIdx;jj++){
+                    // Flushes the remainder from the right sub array
+                    tempArray[kk] = inArray[jj];
+                    kk++;
+                }
+                for(kk=leftIdx;kk<=rightIdx;kk++){
+                    // Copies the sorted array back into the real array
+                    // uses kk-leftIndex to align the temp array indexing to 0
+                    inArray[kk] = tempArray[kk-leftIdx];
+                }
             break;
             case "Party":
                 while((ii <= midIdx)&&(jj <= rightIdx)){
-                        // Merges the sub array into the temp array
-                        if(inArray[ii].getLongParty().compareTo(inArray[jj].getLongParty())>0){
-                            // Takes from the left sub array
-                            tempArray[kk] = inArray[ii];
-                            ii++;
-                        }
-                        else{
-                            // takes from the right sub array
-                            tempArray[kk] = inArray[jj];
-                            jj++;
-                        }
-                        kk++;
-                    }
-                    for(ii=ii;ii<=midIdx;ii++){
-                        // Flushes the remainder from the left sub array
+                    // Merges the sub array into the temp array
+                    if(inArray[ii].getLongParty()
+                                  .compareTo(inArray[jj]
+                                  .getLongParty())>0){
+                        // Takes from the left sub array
                         tempArray[kk] = inArray[ii];
-                        kk++;
+                        ii++;
                     }
-                    for(jj=jj;jj<=rightIdx;jj++){
-                        // Flushes the remainder from the right sub array
+                    else{
+                        // takes from the right sub array
                         tempArray[kk] = inArray[jj];
-                        kk++;
+                        jj++;
                     }
-                    for(kk=leftIdx;kk<=rightIdx;kk++){
-                        // Copies the sorted array back into the real array
-                        // uses kk-leftIndex to align the temp array indexing to 0
-                        inArray[kk] = tempArray[kk-leftIdx];
-                    }
+                    kk++;
+                }
+                for(ii=ii;ii<=midIdx;ii++){
+                    // Flushes the remainder from the left sub array
+                    tempArray[kk] = inArray[ii];
+                    kk++;
+                }
+                for(jj=jj;jj<=rightIdx;jj++){
+                    // Flushes the remainder from the right sub array
+                    tempArray[kk] = inArray[jj];
+                    kk++;
+                }
+                for(kk=leftIdx;kk<=rightIdx;kk++){
+                    // Copies the sorted array back into the real array
+                    // uses kk-leftIndex to align the temp array indexing to 0
+                    inArray[kk] = tempArray[kk-leftIdx];
+                }
             break;
             case "Division":
                 while((ii <= midIdx)&&(jj <= rightIdx)){
-                        // Merges the sub array into the temp array
-                        if(inArray[ii].getDivision().compareTo(inArray[jj].getDivision())>0){
-                            // Takes from the left sub array
-                            tempArray[kk] = inArray[ii];
-                            ii++;
-                        }
-                        else{
-                            // takes from the right sub array
-                            tempArray[kk] = inArray[jj];
-                            jj++;
-                        }
-                        kk++;
-                    }
-                    for(ii=ii;ii<=midIdx;ii++){
-                        // Flushes the remainder from the left sub array
+                    // Merges the sub array into the temp array
+                    if(inArray[ii].getDivision()
+                                  .compareTo(inArray[jj]
+                                  .getDivision())>0){
+                        // Takes from the left sub array
                         tempArray[kk] = inArray[ii];
-                        kk++;
+                        ii++;
                     }
-                    for(jj=jj;jj<=rightIdx;jj++){
-                        // Flushes the remainder from the right sub array
+                    else{
+                        // takes from the right sub array
                         tempArray[kk] = inArray[jj];
-                        kk++;
+                        jj++;
                     }
-                    for(kk=leftIdx;kk<=rightIdx;kk++){
-                        // Copies the sorted array back into the real array
-                        // uses kk-leftIndex to align the temp array indexing to 0
-                        inArray[kk] = tempArray[kk-leftIdx];
-                    }
+                    kk++;
+                }
+                for(ii=ii;ii<=midIdx;ii++){
+                    // Flushes the remainder from the left sub array
+                    tempArray[kk] = inArray[ii];
+                    kk++;
+                }
+                for(jj=jj;jj<=rightIdx;jj++){
+                    // Flushes the remainder from the right sub array
+                    tempArray[kk] = inArray[jj];
+                    kk++;
+                }
+                for(kk=leftIdx;kk<=rightIdx;kk++){
+                    // Copies the sorted array back into the real array
+                    // uses kk-leftIndex to align the temp array indexing to 0
+                    inArray[kk] = tempArray[kk-leftIdx];
+                }
                 break;
             default:
                 System.out.println("Invalid Sorting Type");
@@ -209,15 +225,31 @@ public class Sorts{
         }
      }
 
+     // filter
+     // Taking in the array, the filter provided from the user, and what
+     // they want to filter on. Using a switch statement, the function decides
+     // what to filter on, and then (ignoring case), tests for equality
+     // between the filter and the candidates to be filtered. If there is
+     // no match, the entire list of candidates is put into the list.
+     // The linked list ADT is use as there is going to be an indeterminate
+     // size, so the O(1) insert time at the end is as good as an array, and
+     // can be used in a foreach loop, like an array as well. So the array
+     // like access times and the ability to be an indeterminate size is my
+     // reasoning for the linked list
      public static LinkedList<Candidate> filter(Candidate[] candidates,
-                                                String filterBy,String filter){
+                                                String filterBy,
+                                                String filter){
         LinkedList<Candidate> list = new LinkedList<Candidate>();
+        // The boolean value is used to show if there is no match between the
+        // filter and anything in the candidates
         boolean failed = false;
-
+        // Loops through each candidate in the file
         for(Candidate can: candidates){
+            // Switches on what the user wanted to choose
             switch(filterBy){
                 case "State":
                     if(can.getState().equalsIgnoreCase(filter)){
+                        // Ignore case allows the user to search any case
                         list.insertLast(can);
                     }
                     else{
@@ -227,6 +259,8 @@ public class Sorts{
                 case "Party":
                     if(can.getLongParty().equalsIgnoreCase(filter)||
                        can.getShortParty().equalsIgnoreCase(filter)){
+                        // Searches both the short and long party to ensure
+                        // that the user enters the correct type
                         list.insertLast(can);
                     }
                     else{
@@ -245,6 +279,9 @@ public class Sorts{
                 break;
             }
         }
+        // Checks if the search has failed completely, meaning the list is
+        // completely empty and the failed value is true, if so puts the
+        // sorted/unsorted data
         if(failed==true&&list.isEmpty()==true){
             System.out.println("Failed to filter based upon input");
             System.out.println("All data being shown");

@@ -1,4 +1,6 @@
 /*
+    Functionality not implemented
+
     STUDENT NUMBER: 19481681
     NAME: Benjamin Olsen
     UNIT: COMP1002 Data Structures and Algorithms
@@ -8,7 +10,6 @@
              graph in general. Using an adjacency list to store each adjacent
              node, and edges to store the weight and value for each vertex
              connection
-*/
 import java.util.*;
 public class Graph{
     private class GraphEdge{
@@ -83,3 +84,4 @@ public class Graph{
     public static boolean hasValue(Object inValue){}
     public boolean isAdjacent(String label1, String label2){}
 }
+*/

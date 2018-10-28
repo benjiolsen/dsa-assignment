@@ -1,3 +1,14 @@
+/*
+    STUDENT NUMBER: 19481681
+    NAME: Benjamin Olsen
+    UNIT: COMP1002 Data Structures and Algorithms
+    CLASS: Seats
+    PURPOSE: To store all the information for part 3 of the DSA Assignment,
+             wherein the marginal values are calculated for political parties.
+             This class contains the margin and division name and ID for each
+             division in Australia, or the ones which match the threshold
+             specified later.
+*/
 import java.text.*;
 public class Seats{
     private double margin;

@@ -3,6 +3,9 @@ Creator: Benjamin Olsen, 19481681
 Purpose: To explain the functionality of the DSA Assignment for 2018 Semester 2
 
 HOW TO RUN THIS PROGRAM:
+    The CSV files need to be present in the file this program runs out of. They are to remained named EXACTLY how they are when downloaded,
+    i.e. "HouseStateFirstPrefsByPollingPlaceDownload-20499-WA.csv"
+    Otherwise, this program will not run correctly.
     Please ensure everything is compiled with the command
         "javac *.java"
     Then run the Main class using

@@ -42,7 +42,7 @@ public class Menu{
     // select. This switch runs on the integer choice the user makes, and then
     // if the user selected 0, it breaks from the switch and then out of the
     // main loop, ending the program
-    public static void select(int choice,Candidate[] candidates)
+    private static void select(int choice,Candidate[] candidates)
     {
         switch(choice)
         {
@@ -70,7 +70,7 @@ public class Menu{
     // if the candidates should be sorted/filtered or not, and what the filter
     // /sort should be on. Finally, the option is provided to save the list to
     // a file
-    public static void listNominees(Candidate[] candidates){
+    private static void listNominees(Candidate[] candidates){
         // These integers are used to switch on for the users choice
         int sort,filter,sortChoice=0,filterChoice=0;
         String filterString = null,fileChoice = null;
@@ -185,7 +185,7 @@ public class Menu{
     // for all candidates, as that was previously used in the program. Prompts
     // for users choice allows the user to sort and search, and then depending
     // if there were any results, save them to a file.
-    public static void searchNominees(Candidate[] candidates){
+    private static void searchNominees(Candidate[] candidates){
         // These integers are used to switch on for the users choice
         int sort,sortChoice=0;
         String searchString = null,fileChoice = null;
@@ -271,7 +271,7 @@ public class Menu{
     // speed and ability to iterate with a linked list is useful, however
     // this does come at a memory overhead, but due to its small memory
     // overhead it should be fine.
-    public static void listMargin(){
+    private static void listMargin(){
         double threshold = 6.0;
         String party = new String();
         String fileChoice = new String();
@@ -388,7 +388,7 @@ public class Menu{
     // This method reads in the candidates into an array. This runs at the
     // beginning of the program to ensure it starts with this information
     // already accessible. The array was chosen for its sorting ability.
-    public static Candidate[] readCandidates(){
+    private static Candidate[] readCandidates(){
         // This is the array to be returned. The array is being used, over
         // the list, for its O(1) access time, and the ease it allows for
         // sorting elements throughout the array, rather than using a linked
@@ -459,7 +459,7 @@ public class Menu{
     // copying and extending, a simple linked list could suffice. Plus, its
     // O(1) insert times are good and array like, so reading into them is
     // fine.
-    public static LinkedList<Seats> marginCalc(LinkedList<String> lines,
+    private static LinkedList<Seats> marginCalc(LinkedList<String> lines,
                                                LinkedList<Seats> margins,
                                                String party){
         int vF=0,vA=0,num=0;

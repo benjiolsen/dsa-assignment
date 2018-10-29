@@ -314,8 +314,8 @@ public class Sorts{
              // that the strings are matching cases and wont return false if
              // one letter is the wrong case. Contains is called to match if
              // the last name contains the input name.
-             if(can.getSName().toLowerCase().contains(lName.toLowerCase())){
-                 // O(1) access time
+             // O(1) access time
+             if(can.getSName().toLowerCase().matches(lName.toLowerCase()+".*")){
                  list.insertLast(can);
              }
          }

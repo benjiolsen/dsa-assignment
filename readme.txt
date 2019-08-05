@@ -52,3 +52,5 @@ DEPENDENCIES
     Menu uses: LinkedList, Seats, Candidate
     Sorts uses: LinkedList, Seats, Candidate
     FileIO uses: LinkedList
+DISCLAMER:
+    This project isnt 100% complete, and requires csv files from the ATO on previous election data. There are known bugs and issues.
